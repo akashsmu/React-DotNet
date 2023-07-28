@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Catalog from "../../features/catalog/Catalog";
+import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import {
   Container,
@@ -14,14 +14,21 @@ function App() {
   const theme = createTheme({
     palette: {
       mode: paletteType,
+      background: {
+        default: paletteType === "light" ? "#eaeaea" : "#121212",
+      },
     },
   });
+
+  function handleThemeChange() {
+    setDarkMode(!darkMode);
+  }
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header />
+      <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
       <Container>
-        <Catalog />
+        <Outlet />
       </Container>
     </ThemeProvider>
   );
